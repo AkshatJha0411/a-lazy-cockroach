@@ -2,6 +2,8 @@
 
 This project is a Retrieval-Augmented Generation (RAG) system designed to act as an internal support copilot, providing accurate and contextual answers to user queries based on a corpus of internal documentation.
 
+### Deployed Link : https://customer-support-ticket-handler.streamlit.app
+
 ## 💡 Major Design Decisions and Trade-offs
 
 The core of this application is an AI pipeline that seamlessly integrates several components to deliver a robust solution. The key design decisions and trade-offs made are:
