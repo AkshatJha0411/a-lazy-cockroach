@@ -4,6 +4,9 @@ This project is a Retrieval-Augmented Generation (RAG) system designed to act as
 
 ### Deployed Link : https://customer-support-ticket-handler.streamlit.app
 
+### Architecture Diagram:
+<img width="541" height="768" alt="Screenshot 2025-09-14 at 10 18 41 PM" src="https://github.com/user-attachments/assets/e0b620c2-2127-434f-8ab5-c65870f09bd1" />
+
 ## 💡 Major Design Decisions and Trade-offs
 
 The core of this application is an AI pipeline that seamlessly integrates several components to deliver a robust solution. The key design decisions and trade-offs made are:
