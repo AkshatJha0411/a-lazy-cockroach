@@ -62,7 +62,7 @@ def classify_ticket(query: str):
 
     prompt = f"""
     You are a highly skilled support ticket classifier. Your task is to analyze a user's query and classify it into a JSON object with the following keys:
-    - topic: (choose from "How-to", "Product", "Best practices", "API/SDK", "SSO", "Connector", "Billing", "Security", or "Other")
+    - topic: (choose from "How-to", "Product", "Best practices", "API/SDK", "SSO", "Connector", "Billing", "Security", "Lineage", "Glossary" or "Other")
     - sentiment: (choose from "Positive", "Neutral", "Negative")
     - priority: (choose from "High", "Normal", "Low")
     {example_prompts}
