@@ -32,7 +32,7 @@ def query_rag(user_query: str, top_k: int = 5):
         top_k=top_k,
         include_metadata=True,
         namespace=NAMESPACE,
-        include_values=False
+        include_values=True
     )
 
     # --- Debug: show top 5 similarities manually ---
@@ -64,14 +64,14 @@ def query_rag(user_query: str, top_k: int = 5):
     # --- Prepare prompt for Groq ---
     context_str = "\n\n".join(contexts)
     prompt = f"""The following is context from the Atlan documentation. Answer the question as if you are a senior Atlan support engineer.You are a helpful support agent.
-Use the context below to answer the question.
-If the answer is not in the context, say "I don't know".
+    Use the context below to answer the question.
+    If the answer is not in the context, say "I don't know".
 
-Context:
-{context_str}
+    Context:
+    {context_str}
 
-Question: {user_query}
-Answer:"""
+    Question: {user_query}
+    Answer:"""
 
     # --- Groq completion ---
     completion = groq_client.chat.completions.create(

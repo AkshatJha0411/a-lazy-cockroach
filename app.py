@@ -13,30 +13,31 @@ tab1, tab2 = st.tabs(["Bulk Classification Dashboard", "Interactive AI Agent"])
 
 with tab1:
     st.header("Bulk Ticket Classification Dashboard")
-    # Load tickets from a separate JSON file
+    # Load pre-classified tickets from a JSON file
     try:
-        with open("sample_tickets.json", 'r') as f:
-            new_tickets = json.load(f)
+        with open("sample_tickets_output.json", 'r') as f:
+            classified_tickets = json.load(f)
     except FileNotFoundError:
-        st.error("`sample_tickets.json` not found. Please ensure the file is in the same directory.")
-        new_tickets = []
-
-    # --- Load and classify tickets on app load ---
-    @st.cache_data
-    def load_and_classify_tickets(tickets):
-        for ticket in tickets:
-            query = f"{ticket['subject']} {ticket['body']}"
-            ticket['classification'] = classify_ticket(query)
-        return tickets
-
-    classified_tickets = load_and_classify_tickets(new_tickets)
-
+        st.error("`sample_tickets_output.json` not found. Please ensure the file is in the same directory.")
+        classified_tickets = []
+    
+    # the below was function for getting output on the bulk tickets (got rate limit error and thus now output is saved in sample_tickets_output.json file)
+    # def load_and_classify_tickets(tickets):
+    #     for ticket in tickets:
+    #         query = f"{ticket['subject']} {ticket['body']}"
+    #         ticket['classification'] = classify_ticket(query)
+    #     return tickets
+    
     for ticket in classified_tickets:
         st.markdown(f"**Ticket ID:** {ticket['id']}")
-        st.markdown(f"**Subject:** {ticket['subject']}") # Added subject
+        st.markdown(f"**Subject:** {ticket['subject']}")
         st.markdown(f"**Query:** {ticket['body']}")
 
-        classification = ticket['classification']
+        classification = {
+            "topic": ticket["Topic"],
+            "sentiment": ticket["Sentiment"],
+            "priority": ticket["Priority"]
+        }
 
         col_topic, col_sentiment, col_priority = st.columns(3)
         with col_topic:
@@ -75,7 +76,7 @@ with tab2:
         with col2:
             st.subheader("💬 Final Response")
             
-            rag_topics = ["How-to", "Product", "Best practices", "API/SDK", "SSO", "Connector", "Billing", "Security"]
+            rag_topics = ["How-to", "Product", "Best practices", "API/SDK", "SSO"]
             
             if classification["topic"] in rag_topics:
                 with st.spinner("Finding the best response..."):
@@ -87,9 +88,9 @@ with tab2:
                             st.markdown(f"- {s}")
                     else:
                         st.info(
-                            f"This ticket has been classified as a '{classification['topic']}' issue and routed to the appropriate team."
+                            f"This ticket has been classified as a '{classification['topic']}' issue and is currently out of the scope of this AI agent. It has been routed to the appropriate team for assistance."
                         )
             else:
                 st.info(
-                    f"This ticket has been classified as a '{classification['topic']}' issue and routed to the appropriate team."
+                    f"This ticket has been classified as a '{classification['topic']}' issue and is currently out of the scope of this AI agent. It has been routed to the appropriate team for assistance."
                 )
