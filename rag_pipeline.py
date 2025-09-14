@@ -21,7 +21,7 @@ embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 MODEL = "llama-3.1-8b-instant"
 
-def query_rag(user_query: str, top_k: int = 10):
+def query_rag(user_query: str, top_k: int = 5):
     # --- Embed query ---
     query_vec = embed_model.encode([user_query])[0].tolist()
     print("🔹 Query embedding vector (first 10 dims):", query_vec[:10], "...")
@@ -32,7 +32,7 @@ def query_rag(user_query: str, top_k: int = 10):
         top_k=top_k,
         include_metadata=True,
         namespace=NAMESPACE,
-        include_values=True
+        include_values=False
     )
 
     # --- Debug: show top 5 similarities manually ---
@@ -63,7 +63,7 @@ def query_rag(user_query: str, top_k: int = 10):
 
     # --- Prepare prompt for Groq ---
     context_str = "\n\n".join(contexts)
-    prompt = f"""You are a helpful support agent.
+    prompt = f"""The following is context from the Atlan documentation. Answer the question as if you are a senior Atlan support engineer.You are a helpful support agent.
 Use the context below to answer the question.
 If the answer is not in the context, say "I don't know".
 

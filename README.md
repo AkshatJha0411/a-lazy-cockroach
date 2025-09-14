@@ -80,7 +80,7 @@ source venv/bin/activate
 Install the required Python packages.
 
 ```bash
-pip install streamlit groq pinecone-client python-dotenv sentence-transformers
+pip install streamlit groq pinecone python-dotenv sentence-transformers numpy
 ```
 
 > Note: The `requirements.txt` file should contain all the necessary libraries, such as `pinecone`, `sentence-transformers`, `groq`, `numpy`, `python-dotenv`, and `streamlit`.

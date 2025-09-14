@@ -1,6 +1,6 @@
-streamlit
-openai
-groq
-pinecone
-python-dotenv
-sentence_transformers
+streamlit 
+groq 
+pinecone 
+python-dotenv 
+sentence-transformers 
+numpy
